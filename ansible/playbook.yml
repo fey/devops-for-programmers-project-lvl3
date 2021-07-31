@@ -58,6 +58,7 @@
           DB_USERNAME: "{{ db_username }}"
           DB_PASSWORD: "{{ db_password }}"
 
-# - name: Setting up monitoring
-#   hosts: all
-#   tasks: []
+- name: Setting up monitoring
+  hosts: all
+  roles:
+    - role: datadog.datadog
