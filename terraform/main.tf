@@ -16,13 +16,14 @@ resource "digitalocean_loadbalancer" "public" {
     entry_port     = 80
     entry_protocol = "http"
 
-    target_port     = 80
+    target_port     = 8000
     target_protocol = "http"
   }
 
   healthcheck {
-    port     = 22
-    protocol = "tcp"
+    port     = 8000
+    protocol = "http"
+    path = "/"
   }
 
   droplet_ids = digitalocean_droplet.web.*.id
