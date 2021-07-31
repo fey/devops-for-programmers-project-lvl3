@@ -1,5 +1,5 @@
 variable "do_token" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -16,6 +16,6 @@ variable "datadog_app_key" {
 }
 
 variable "app_port" {
-  type = number
+  type    = number
   default = 8000
 }

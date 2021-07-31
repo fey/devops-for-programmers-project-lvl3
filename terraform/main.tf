@@ -23,10 +23,8 @@ resource "digitalocean_loadbalancer" "public" {
   healthcheck {
     port     = var.app_port
     protocol = "http"
-    path = "/"
+    path     = "/"
   }
-
-  redirect_http_to_https = true
 
   droplet_ids = digitalocean_droplet.web.*.id
 }
