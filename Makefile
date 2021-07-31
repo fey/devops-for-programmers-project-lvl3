@@ -1,4 +1,8 @@
 setup: tf-init
+	make -C ansible setup
+
+make deploy:
+	make -C ansible deploy
 
 tf-init:
 	make -C terraform init

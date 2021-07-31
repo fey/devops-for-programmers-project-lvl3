@@ -1,0 +1,6 @@
+vault_app_key: base64:4yKIEIe6h4yn7SKvdUI2Cd9utSvoPWUm2tgivTZq6PY=
+vault_db_host: hexlet-devops-project-lvl3-do-user-9141766-0.b.db.ondigitalocean.com
+vault_db_port: "25060"
+vault_db_database: defaultdb
+vault_db_username: doadmin
+vault_db_password: suzl3fi4l7ugdb6m

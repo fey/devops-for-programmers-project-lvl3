@@ -1,0 +1,63 @@
+- name: Setting up servers
+  hosts: all
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install docker
+      include_role:
+        name: geerlingguy.docker
+
+    - name: Install docker
+      include_role:
+        name: geerlingguy.pip
+
+- name: Run migrations
+  hosts: web-01
+  connection: local
+  tasks:
+    - name: Run migrations
+      community.docker.docker_container:
+        container_default_behavior: "compatibility"
+        name: "{{ app_name }}"
+        image: "{{ app_image }}"
+        state: started
+        restart: yes
+        command: php artisan migrate --force
+        detach: no
+        env:
+          APP_KEY: "{{ app_key }}"
+          DB_HOST: "{{ db_host }}"
+          DB_PORT: "{{ db_port }}"
+          DB_DATABASE: "{{ db_database }}"
+          DB_USERNAME: "{{ db_username }}"
+          DB_PASSWORD: "{{ db_password }}"
+
+- name: Deploy application
+  hosts: all
+  tasks:
+    - name: Run application container
+      community.docker.docker_container:
+        name: "{{ app_name }}"
+        image: "{{ app_image }}"
+        state: started
+        restart: yes
+        ports:
+          - "8000:8000"
+        healthcheck:
+          interval: 5s
+          retries: 3
+          test: curl -f http://localhost:8000/ || exit 1
+          timeout: 5s
+        env:
+          APP_KEY: "{{ app_key }}"
+          DB_HOST: "{{ db_host }}"
+          DB_PORT: "{{ db_port }}"
+          DB_DATABASE: "{{ db_database }}"
+          DB_USERNAME: "{{ db_username }}"
+          DB_PASSWORD: "{{ db_password }}"
+
+# - name: Setting up monitoring
+#   hosts: all
+#   tasks: []
