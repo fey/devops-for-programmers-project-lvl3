@@ -1,0 +1,5 @@
+vault-password
+.terraform
+*.backup
+*.log
+secrets.auto.tfvars
