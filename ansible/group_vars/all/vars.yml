@@ -1,5 +1,6 @@
 pip_install_packages:
   - docker
+  - docker-py
 pip_package: python3-pip
 app_name: xsolla-test
 app_image: feycot/xsolla-summer-school-backend-2021-prod

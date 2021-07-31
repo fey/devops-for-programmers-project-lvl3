@@ -14,3 +14,8 @@ variable "datadog_api_key" {
 variable "datadog_app_key" {
   type = string
 }
+
+variable "app_port" {
+  type = number
+  default = 8000
+}

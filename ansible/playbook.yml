@@ -1,5 +1,7 @@
 - name: Setting up servers
   hosts: all
+  tags:
+    - setup_server
   tasks:
     - name: Update apt cache
       ansible.builtin.apt:
@@ -16,6 +18,8 @@
 - name: Run migrations
   hosts: web-01
   connection: local
+  tags:
+    - deploy
   tasks:
     - name: Run migrations
       community.docker.docker_container:
@@ -36,6 +40,8 @@
 
 - name: Deploy application
   hosts: all
+  tags:
+    - deploy
   tasks:
     - name: Run application container
       community.docker.docker_container:
@@ -62,3 +68,5 @@
   hosts: all
   roles:
     - role: datadog.datadog
+  tags:
+    - monitoring

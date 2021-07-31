@@ -16,15 +16,17 @@ resource "digitalocean_loadbalancer" "public" {
     entry_port     = 80
     entry_protocol = "http"
 
-    target_port     = 8000
+    target_port     = var.app_port
     target_protocol = "http"
   }
 
   healthcheck {
-    port     = 8000
+    port     = var.app_port
     protocol = "http"
     path = "/"
   }
+
+  redirect_http_to_https = true
 
   droplet_ids = digitalocean_droplet.web.*.id
 }
@@ -51,10 +53,4 @@ resource "digitalocean_database_db" "database" {
 resource "digitalocean_domain" "lvl3" {
   name       = "lvl3.devops-baby.club"
   ip_address = digitalocean_loadbalancer.public.ip
-}
-
-resource "digitalocean_certificate" "cert" {
-  name    = "hexlet-devops-project-lvl3"
-  type    = "lets_encrypt"
-  domains = [digitalocean_domain.lvl3.id]
 }
