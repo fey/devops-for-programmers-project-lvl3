@@ -6,3 +6,11 @@ variable "do_token" {
 variable "ngagarinov_ssh_key" {
   type = string
 }
+
+variable "datadog_api_key" {
+  type = string
+}
+
+variable "datadog_app_key" {
+  type = string
+}

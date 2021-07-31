@@ -44,11 +44,11 @@
         state: started
         restart: yes
         ports:
-          - "8000:8000"
+          - "{{ app_port }}:8000"
         healthcheck:
           interval: 5s
           retries: 3
-          test: curl -f http://localhost:8000/ || exit 1
+          test: curl -f http://localhost:{{ app_port }}/ || exit 1
           timeout: 5s
         env:
           APP_KEY: "{{ app_key }}"
