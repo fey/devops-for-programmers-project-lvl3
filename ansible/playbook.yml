@@ -32,7 +32,7 @@
         restart: yes
         command: php artisan migrate --force
         detach: no
-      env_file: .env
+        env_file: .env
 
     - name: Run application container
       community.docker.docker_container:
