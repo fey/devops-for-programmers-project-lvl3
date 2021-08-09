@@ -19,3 +19,8 @@ variable "app_port" {
   type    = number
   default = 8000
 }
+
+variable "region" {
+  type = string
+  default = var.region
+}
