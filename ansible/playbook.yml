@@ -17,6 +17,11 @@
   tags:
     - deploy
   tasks:
+    - name: create environment variables from template
+      template:
+        src: environment.j2
+        dest: '.env'
+
     - name: Run migrations
       run_once: yes
       community.docker.docker_container:
@@ -27,13 +32,7 @@
         restart: yes
         command: php artisan migrate --force
         detach: no
-        env:
-          APP_KEY: "{{ app_key }}"
-          DB_HOST: "{{ db_host }}"
-          DB_PORT: "{{ db_port }}"
-          DB_DATABASE: "{{ db_database }}"
-          DB_USERNAME: "{{ db_username }}"
-          DB_PASSWORD: "{{ db_password }}"
+      env_file: .env
 
     - name: Run application container
       community.docker.docker_container:
@@ -48,13 +47,7 @@
           retries: 3
           test: curl -f http://localhost:{{ app_port }}/ || exit 1
           timeout: 5s
-        env:
-          APP_KEY: "{{ app_key }}"
-          DB_HOST: "{{ db_host }}"
-          DB_PORT: "{{ db_port }}"
-          DB_DATABASE: "{{ db_database }}"
-          DB_USERNAME: "{{ db_username }}"
-          DB_PASSWORD: "{{ db_password }}"
+        env_file: .env
 
 - name: Setting up monitoring
   hosts: all
