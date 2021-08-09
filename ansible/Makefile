@@ -24,3 +24,6 @@ uptime:
 
 deploy:
 	ansible-playbook playbook.yml -t deploy -vv -i inventory.ini --vault-password-file ../vault-password
+
+prepare-servers:
+	ansible-playbook playbook.yml -vv -i inventory.ini --vault-password-file ../vault-password

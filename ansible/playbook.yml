@@ -7,21 +7,18 @@
       ansible.builtin.apt:
         update_cache: yes
 
-    - name: Install docker
-      include_role:
-        name: geerlingguy.docker
-
-    - name: Install docker
+    - name: Install pip
       include_role:
         name: geerlingguy.pip
 
-- name: Run migrations
-  hosts: web-01
-  connection: local
+- name: Deploy application
+  hosts: all
+  gather_facts: no
   tags:
     - deploy
   tasks:
     - name: Run migrations
+      run_once: yes
       community.docker.docker_container:
         container_default_behavior: "compatibility"
         name: "{{ app_name }}"
@@ -38,11 +35,6 @@
           DB_USERNAME: "{{ db_username }}"
           DB_PASSWORD: "{{ db_password }}"
 
-- name: Deploy application
-  hosts: all
-  tags:
-    - deploy
-  tasks:
     - name: Run application container
       community.docker.docker_container:
         name: "{{ app_name }}"
