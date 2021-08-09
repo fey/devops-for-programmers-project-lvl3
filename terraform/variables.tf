@@ -8,17 +8,17 @@ variable "app_port" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "fra1"
 }
 
 variable "datadog_api_key" {
-  type = string
+  type      = string
   sensitive = true
 }
 
 variable "datadog_app_key" {
-  type = string
+  type      = string
   sensitive = true
 }
 

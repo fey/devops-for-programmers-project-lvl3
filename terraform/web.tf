@@ -7,7 +7,7 @@ resource "digitalocean_loadbalancer" "public" {
   name   = "hexlet-devops-project-web"
   region = var.region
 
-    forwarding_rule {
+  forwarding_rule {
     entry_port     = 443
     entry_protocol = "https"
 
