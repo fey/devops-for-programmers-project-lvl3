@@ -5,9 +5,6 @@ setup: prepare-vault-password install
 prepare-vault-password:
 	touch ../vault-password
 
-set-vault-password:
-	echo "$(PASSWORD)" > vault-password
-
 install:
 	ansible-galaxy role install -r requirements.yml
 	ansible-galaxy collection install -r requirements.yml
